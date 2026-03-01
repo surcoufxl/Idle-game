@@ -6,7 +6,7 @@ import {
 } from "./game.js";
 import { loadState, saveState, wipeSave } from "./save.js";
 import { renderAll } from "./ui.js";
-
+console.log("main.js loaded");
 let state = loadState() ?? createInitialState();
 
 // Simple offline progress: apply earnings since lastTick (capped)
