@@ -3,33 +3,36 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Incremental Game</title>
+  <title>Incremental Skills Game</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="topbar">
-    <h1>Incremental Game</h1>
+    <h1>Incremental Skills Game</h1>
     <div class="stats">
-      <div><span class="label">Coins:</span> <span id="coins">0</span></div>
-      <div><span class="label">Per sec:</span> <span id="cps">0</span></div>
+      <div><span class="label">Copper ore:</span> <span id="coins">0</span></div>
+      <div><span class="label">Running:</span> <span id="cps">—</span></div>
     </div>
   </header>
 
   <main class="layout">
     <section class="panel">
-      <h2>Click</h2>
-      <button id="clickBtn" class="big">+<span id="clickPower">1</span> coin</button>
-      <p class="hint">Tip: buy generators to earn coins automatically.</p>
+      <h2>Skills</h2>
+      <div id="skills"></div>
     </section>
 
     <section class="panel">
-      <h2>Generators</h2>
-      <div id="shop"></div>
+      <h2>Inventory</h2>
+      <div id="inventory"></div>
     </section>
 
     <section class="panel">
-      <h2>Upgrades</h2>
-      <div id="upgrades"></div>
+      <h2>Action</h2>
+      <div id="action"></div>
+
+      <button id="clickBtn" class="big" style="margin-top: 12px;">
+        Do action (+<span id="clickPower">1</span>)
+      </button>
     </section>
   </main>
 
