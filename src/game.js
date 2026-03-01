@@ -1,6 +1,10 @@
 import { NODES } from "./data/nodes.js";
 import { RECIPES as RECIPE_DATA } from "./data/recipes.js";
-import { xpToNext, MAX_LEVEL } from "./data/xp.js";
+import { xpToNext as xpToNextImpl, MAX_LEVEL as MAX_LEVEL_IMPL } from "./data/xp.js";
+
+// Re-export these so ui.js can import them from game.js (your current UI expects this)
+export const xpToNext = xpToNextImpl;
+export const MAX_LEVEL = MAX_LEVEL_IMPL;
 
 // Re-export queue constant for UI/main
 export const QUEUE_INF = -1;
@@ -70,7 +74,6 @@ export function createInitialState() {
   const selected = {};
   for (const sk of Object.keys(SKILLS)) {
     const def = defaultTaskForSkill(sk);
-    // fallback to a safe default if nothing exists (shouldn't happen)
     selected[sk] = def ?? { kind: "action", id: Object.keys(ACTIONS)[0] };
   }
 
@@ -78,13 +81,16 @@ export function createInitialState() {
   const builderSkill = SKILLS.smithing ? "smithing" : Object.keys(SKILLS)[0];
   const builderDefault = selected[builderSkill];
 
+  // Default running skill
+  const runningSkill = SKILLS.mining ? "mining" : Object.keys(SKILLS)[0];
+
   return {
     inventory: emptyInventory(),
     skills: initialSkills(),
 
     // Main/idle action (runs continuously when mode === "main")
-    main: { ...selected.mining },       // will be corrected below by runningSkill+selected
-    runningSkill: "mining",
+    main: { ...selected[runningSkill] },
+    runningSkill,
     mainProgress: 0,
 
     // Planner queue (runs when mode === "queue")
